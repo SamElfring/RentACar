@@ -20,5 +20,20 @@ namespace RentACar.Utility
             };
             return items.OrderBy(s => s.Text).ToList();
         }
+
+        public static readonly string LowClass = "Low";
+        public static readonly string MidClass = "Mid";
+        public static readonly string HighClass = "High";
+
+        public static List<SelectListItem> GetClassesForDropDown()
+        {
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem {Value = Helper.LowClass, Text = "Lage klasse"},
+                new SelectListItem {Value = Helper.MidClass, Text = "Middel klasse"},
+                new SelectListItem {Value = Helper.HighClass, Text = "Luxe klasse"}
+            };
+            return items.ToList();
+        }
     }
 }

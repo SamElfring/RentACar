@@ -9,7 +9,7 @@ namespace RentACar.Services
     {
         public Task<int> AddCar(CarViewModel model);
 
-        public List<Car> GetCars();
+        public List<Car> GetCars(string sort);
 
         public Task<int> RemoveCar(string licensePlate);
     }

@@ -30,7 +30,8 @@ namespace RentACar.Services
                     LicensePlate = model.LicensePlate,
                     Brand = model.Brand,
                     Type = model.Type,
-                    DayPrice = model.DayPrice
+                    DayPrice = model.DayPrice,
+                    Class = model.Class
                 };
                 _db.Cars.Add(car);
                 await _db.SaveChangesAsync();
@@ -39,9 +40,25 @@ namespace RentACar.Services
             }
         }
 
-        public List<Car> GetCars()
+        public List<Car> GetCars(string sort)
         {
-            return _db.Cars.ToList();
+            sort = sort.ToLower();
+            List<Car> list = new List<Car>();
+
+            switch (sort)
+            {
+                case "class":
+                    list = _db.Cars.OrderBy(x => x.Class).ToList();
+                    break;
+                case "price-lowhigh":
+                    list = _db.Cars.OrderByDescending(x => x.DayPrice).ToList();
+                    break;
+                default:
+                    list = _db.Cars.ToList();
+                    break;
+            }
+
+            return list;
         }
 
         public async Task<int> RemoveCar(string licensePlate)

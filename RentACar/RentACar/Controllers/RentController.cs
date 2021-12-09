@@ -21,8 +21,9 @@ namespace RentACar.Controllers
             _userService = userService;
         }
 
+        [HttpGet("Rent/{carClass}")]
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string carClass)
         {
             List<string> roles = await _userService.GetUserRoles();
 
@@ -37,7 +38,7 @@ namespace RentACar.Controllers
             }
 
             ViewBag.IsAdmin = hasAccess;
-            ViewBag.Cars = _carService.GetCars();
+            ViewBag.Cars = _carService.GetCars(carClass);
             return View();
         }
     }

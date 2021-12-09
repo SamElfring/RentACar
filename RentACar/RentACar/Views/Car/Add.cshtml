@@ -2,7 +2,7 @@
 
 <div class="text-white">
     <h2>Voeg een auto toe</h2>
-    <form id="addCarForm" asp-action="Add" asp-controller="Rent">
+    <form id="addCarForm" asp-action="Add" asp-controller="Car">
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group row">
@@ -34,6 +34,18 @@
             <div class="col-md-10">
                 <input asp-for="DayPrice" class="form-control" />
                 <span asp-validation-for="DayPrice" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Class"></label>
+            <div class="col-md-10">
+                <select asp-for="Class"
+                        asp-items="@RentACar.Utility.Helper.GetClassesForDropDown()"
+                        class="form-control">
+                    <option selected>-- Selecteer Klasse</option>
+                </select>
+                <span asp-validation-for="Class" class="text-danger"></span>
             </div>
         </div>
 

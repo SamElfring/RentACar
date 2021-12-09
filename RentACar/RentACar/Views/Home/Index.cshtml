@@ -3,6 +3,57 @@
 }
 
 <div class="text-center text-white">
-    <h1 class="display-4">Huur nu je auto bij Rent A Car!</h1>
-    <p class="text-secondary">031-4876836459</p>
+    <h1 class="font-weight-bold">Snel een auto nodig? Huur nu bij Rent A Car!</h1>
+    <h3 class="text-secondary">Of bel ons op: 031-4876836459</h3>
 </div>
+
+<div id="homeCards">
+    <div class="card homeCard">
+        <img class="card-img-top" src="~/img/car1.png" alt="Card foto">
+        <div class="card-body">
+            <h5 class="card-title">Lage klasse</h5>
+            <p class="card-text">Zoekt u een auto voor een niet al te hoge prijs die ook nog eens erg betrouwbaar is? Zoek niet verder!</p>
+            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+        </div>
+    </div>
+    <div class="card homeCard">
+        <img class="card-img-top" src="~/img/car2.png" alt="Card foto">
+        <div class="card-body">
+            <h5 class="card-title">Middel klasse</h5>
+            <p class="card-text">Onze middel klasse auto's zijn een absoluut genot om in te rijden! Erg comfortabel voor een goede prijs!</p>
+            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+        </div>
+    </div>
+    <div class="card homeCard">
+        <img class="card-img-top" src="~/img/car3.png" alt="Card foto">
+        <div class="card-body">
+            <h5 class="card-title">Luxe klasse</h5>
+            <p class="card-text">Wilt u meer klasse, snelheid, kracht en comform? Huur dan nu een van onze luxe auto's en geniet!</p>
+            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+        </div>
+    </div>
+</div>
+<div class="text-center text-white" style="margin-top: 5rem;">
+    <h2>Kies uit meerdere auto's in verschillende klasses!</h2>
+</div>
+
+<style>
+    #homeCards {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5rem;
+    }
+
+    .homeCard {
+        width: calc(100% / 3);
+        margin: 0 2rem;
+    }
+    .homeCard img {
+        width: fit-content();
+        height: 12rem;
+    }
+    .homeCard .card-body {
+        background: #091C2C;
+        color: white;
+    }
+</style>

@@ -9,5 +9,6 @@ namespace RentACar.Models
         public string Brand { get; set; }
         public string Type { get; set; }
         public string DayPrice { get; set; }
+        public string Class { get; set; }
     }
 }
