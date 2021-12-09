@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Huren";
+}
+<div class="text-white">
+    <h2>Huur een auto!</h2>
+
+    <div id="carList">
+        @foreach (var car in ViewBag.Cars)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@car.Brand @car.Type</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@car.LicensePlate</h6>
+
+                    <div class="cardButtons">
+                        <a href="#" class="card-link btn btn-primary">Huur nu</a>
+
+                        @if (ViewBag.IsAdmin)
+                        {
+                            <form id="removeCarForm-@car.LicensePlate" asp-action="Remove" asp-controller="Rent">
+                                <input hidden type="text" name="licensePlate" value="@car.LicensePlate" />
+                                <a class="card-link btn btn-danger" href="javascript:document.getElementById('removeCarForm-@car.LicensePlate').submit()">Verwijderen</a>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    #carList {
+        text-decoration: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card {
+        color: black;
+        margin-bottom: 1.5rem;
+    }
+
+    .cardButtons {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
