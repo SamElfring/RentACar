@@ -1,4 +1,5 @@
-﻿using RentACar.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RentACar.Models;
 using RentACar.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -43,22 +44,22 @@ namespace RentACar.Services
         public List<Car> GetCars(string sort)
         {
             sort = sort.ToLower();
-            List<Car> list = new List<Car>();
 
             switch (sort)
             {
-                case "class":
-                    list = _db.Cars.OrderBy(x => x.Class).ToList();
-                    break;
+                case "lowclass":
+                    return _db.Cars.Where(x => x.Class == "Low").ToList();
+                case "midclass":
+                    return _db.Cars.Where(x => x.Class == "Mid").ToList();
+                case "highclass":
+                    return _db.Cars.Where(x => x.Class == "High").ToList();
                 case "price-lowhigh":
-                    list = _db.Cars.OrderByDescending(x => x.DayPrice).ToList();
-                    break;
+                    return _db.Cars.OrderBy(x => x.DayPrice).ToList();
+                case "price-highlow":
+                    return _db.Cars.OrderByDescending(x => x.DayPrice).ToList();
                 default:
-                    list = _db.Cars.ToList();
-                    break;
+                    return _db.Cars.ToList();
             }
-
-            return list;
         }
 
         public async Task<int> RemoveCar(string licensePlate)
@@ -68,6 +69,23 @@ namespace RentACar.Services
             await _db.SaveChangesAsync();
 
             return 1;
+        }
+
+        public List<SelectListItem> GetCarsFromSelectList()
+        {
+            var items = new List<SelectListItem>();
+            List<Car> cars = _db.Cars.ToList();
+
+            foreach (Car car in cars)
+            {
+                items.Add(new SelectListItem { Value = car.LicensePlate, Text = $"{car.Brand} {car.Type} - {car.LicensePlate}" });
+            }
+            return items.ToList();
+        }
+
+        public Car GetCarFromLicensePlate(string licensePlate)
+        {
+            return _db.Cars.Where(x => x.LicensePlate == licensePlate).FirstOrDefault();
         }
     }
 }

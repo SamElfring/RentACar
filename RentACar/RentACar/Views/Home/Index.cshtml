@@ -13,7 +13,7 @@
         <div class="card-body">
             <h5 class="card-title">Lage klasse</h5>
             <p class="card-text">Zoekt u een auto voor een niet al te hoge prijs die ook nog eens erg betrouwbaar is? Zoek niet verder!</p>
-            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+            <a asp-action="Index" asp-route-carClass="lowclass" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
         </div>
     </div>
     <div class="card homeCard">
@@ -21,7 +21,7 @@
         <div class="card-body">
             <h5 class="card-title">Middel klasse</h5>
             <p class="card-text">Onze middel klasse auto's zijn een absoluut genot om in te rijden! Erg comfortabel voor een goede prijs!</p>
-            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+            <a asp-action="Index" asp-route-carClass="midclass" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
         </div>
     </div>
     <div class="card homeCard">
@@ -29,7 +29,7 @@
         <div class="card-body">
             <h5 class="card-title">Luxe klasse</h5>
             <p class="card-text">Wilt u meer klasse, snelheid, kracht en comform? Huur dan nu een van onze luxe auto's en geniet!</p>
-            <a asp-action="Index/none" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
+            <a asp-action="Index" asp-route-carClass="highclass" asp-controller="Rent" class="btn btn-danger">Huur nu!</a>
         </div>
     </div>
 </div>

@@ -10,6 +10,13 @@ namespace RentACar.Models
 
         }
 
+        public DbSet<InvoiceRule> InvoiceRules { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

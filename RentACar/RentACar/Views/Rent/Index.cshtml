@@ -5,12 +5,20 @@
     <div class="d-flex justify-content-between">
         <h2>Huur een auto!</h2>
 
-        <select class="custom-select w-25">
+        <select id="sortCars" class="custom-select w-25" onchange="Sort(this)">
             <option value="none">Niet sorteren</option>
-            <option value="class">Sorteer op klasse</option>
-            <option value="price-lowHigh">Sorteer op prijs (laag -> hoog)</option>
-            <option value="price-highLow">Sorteer op prijs (hoog -> laag)</option>
+            <option value="lowclass">Lage klasse</option>
+            <option value="midclass">Middel klasse</option>
+            <option value="highclass">Luxe klasse</option>
+            <option value="price-lowigh">Sorteer op prijs (laag -> hoog)</option>
+            <option value="price-highlow">Sorteer op prijs (hoog -> laag)</option>
         </select>
+        <script>
+            document.getElementById("sortCars").value = "@ViewBag.CarClass";
+            function Sort(select) {
+                location.replace(location.protocol + "//" + location.host + "/Rent/Index/" + select.value);
+            }
+        </script>
 
         @if (ViewBag.IsAdmin)
         {
@@ -29,7 +37,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">Klasse: @car.Class</h6>
 
                     <div class="cardButtons mt-3">
-                        <a href="#" class="card-link btn btn-primary">Huur nu</a>
+                        <a asp-action="NewRent" asp-controller="Rent" asp-route-licenseplate="@car.LicensePlate" class="card-link btn btn-primary">Huur nu</a>
 
                         @if (ViewBag.IsAdmin)
                         {

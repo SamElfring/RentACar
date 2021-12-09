@@ -1,4 +1,5 @@
-﻿using RentACar.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RentACar.Models;
 using RentACar.Models.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,5 +13,9 @@ namespace RentACar.Services
         public List<Car> GetCars(string sort);
 
         public Task<int> RemoveCar(string licensePlate);
+
+        public List<SelectListItem> GetCarsFromSelectList();
+
+        public Car GetCarFromLicensePlate(string licensePlate);
     }
 }

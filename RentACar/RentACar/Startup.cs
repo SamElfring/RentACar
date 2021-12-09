@@ -29,6 +29,7 @@ namespace RentACar
 
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRentService, RentService>();
 
             services.AddControllersWithViews();
         }

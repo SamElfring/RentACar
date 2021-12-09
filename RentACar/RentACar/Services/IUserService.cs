@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RentACar.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RentACar.Services
@@ -6,6 +7,8 @@ namespace RentACar.Services
     public interface IUserService
     {
         public string GetUserId();
+        public Task<ApplicationUser> GetUser();
         public Task<List<string>> GetUserRoles();
+        public ApplicationUser GetEmployees();
     }
 }

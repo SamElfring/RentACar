@@ -19,7 +19,8 @@ namespace RentACar.Models.ViewModels
 
         [DisplayName("Dag prijs")]
         [Required(ErrorMessage = "{0} is een verplicht veld!")]
-        public string DayPrice { get; set; }
+        [DataType(DataType.Currency)]
+        public int DayPrice { get; set; }
 
         [DisplayName("Klasse")]
         [Required(ErrorMessage = "{0} is een verplicht veld!")]

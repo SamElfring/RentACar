@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentACar.Models;
 
 namespace RentACar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211209211847_Removed licenseplate from invoice")]
+    partial class Removedlicenseplatefrominvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,10 +267,13 @@ namespace RentACar.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("InvoiceRuleId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Number");
@@ -276,6 +281,8 @@ namespace RentACar.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("InvoiceRuleId");
 
                     b.ToTable("Invoices");
                 });
@@ -292,17 +299,12 @@ namespace RentACar.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("InvoiceNumber")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarLicensePlate");
-
-                    b.HasIndex("InvoiceNumber");
 
                     b.ToTable("InvoiceRules");
                 });
@@ -368,9 +370,15 @@ namespace RentACar.Migrations
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
+                    b.HasOne("RentACar.Models.InvoiceRule", "InvoiceRule")
+                        .WithMany()
+                        .HasForeignKey("InvoiceRuleId");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Employee");
+
+                    b.Navigation("InvoiceRule");
                 });
 
             modelBuilder.Entity("RentACar.Models.InvoiceRule", b =>
@@ -379,13 +387,7 @@ namespace RentACar.Migrations
                         .WithMany()
                         .HasForeignKey("CarLicensePlate");
 
-                    b.HasOne("RentACar.Models.Invoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceNumber");
-
                     b.Navigation("Car");
-
-                    b.Navigation("Invoice");
                 });
 #pragma warning restore 612, 618
         }
