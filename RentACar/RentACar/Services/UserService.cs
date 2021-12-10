@@ -38,6 +38,23 @@ namespace RentACar.Services
             return await _userManager.GetRolesAsync(user) as List<string>;
         }
 
+        public async Task<bool> HasAccess()
+        {
+            List<string> roles = await this.GetUserRoles();
+
+            bool hasAccess = false;
+            foreach (string role in roles)
+            {
+                if (role == "Admin" || role == "Employee")
+                {
+                    hasAccess = true;
+                    break;
+                }
+            }
+
+            return hasAccess;
+        }
+
         public ApplicationUser GetEmployees()
         {
             return _userManager.GetUsersInRoleAsync("Employee").Result[0];

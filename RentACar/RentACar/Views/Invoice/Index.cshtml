@@ -1,0 +1,44 @@
+﻿@{ 
+    ViewData["Title"] = "Facturen";
+}
+
+<div class="text-white">
+    @if (!ViewBag.HasAccess)
+    {
+        <h2>Jouw facturen:</h2>
+    }
+    else
+    {
+        <h2>Alle facturen:</h2>
+    }
+    <div class="invoiceList" style="color: black;">
+
+        @foreach (var invoice in ViewBag.Invoices)
+        {
+            <div class="invoice bg-light p-2 my-4 d-flex justify-content-around w-75">
+                <div class="invoiceInvoiceRule w-100">
+                    <h3>Factuur</h3>
+                    <p>Startdatum: @invoice.InvoiceRule.StartDate</p>
+                    <p>Einddatum: @invoice.InvoiceRule.EndDate</p>
+                    <p>Prijs per dag: €@invoice.Car.DayPrice</p>
+                    <p>Totaal: €@invoice.RentPrice</p>
+                </div>
+
+                <div class="invoiceCar ml-2 pl-2 border-left border-dark w-100">
+                    <h3>Auto</h3>
+                    <p>Type: @invoice.Car.Brand @invoice.Car.Type</p>
+                    <p>Kenteken: @invoice.Car.LicensePlate</p>
+                </div>
+
+                @if (ViewBag.HasAccess)
+                {
+                    <div class="invoiceUser ml-2 pl-2 border-left border-dark w-100">
+                        <h3>Gebruiker</h3>
+                        <p>Naam: @invoice.User.FullName</p>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</div>

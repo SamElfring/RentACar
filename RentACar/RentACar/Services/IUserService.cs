@@ -9,6 +9,7 @@ namespace RentACar.Services
         public string GetUserId();
         public Task<ApplicationUser> GetUser();
         public Task<List<string>> GetUserRoles();
+        public Task<bool> HasAccess();
         public ApplicationUser GetEmployees();
     }
 }

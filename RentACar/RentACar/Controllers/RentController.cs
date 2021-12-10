@@ -27,22 +27,13 @@ namespace RentACar.Controllers
         {
             List<string> roles = await _userService.GetUserRoles();
 
-            bool hasAccess = false;
-            foreach (string role in roles)
-            {
-                if (role == "Admin" || role == "Employee")
-                {
-                    hasAccess = true;
-                    break;
-                }
-            }
-
             ViewBag.CarClass = carClass;
-            ViewBag.IsAdmin = hasAccess;
+            ViewBag.IsAdmin = await _userService.HasAccess();
             ViewBag.Cars = _carService.GetCars(carClass);
             return View();
         }
 
+        [Authorize]
         public IActionResult NewRent(string licensePlate = "none")
         {
             ViewBag.CarsDropdown = _carService.GetCarsFromSelectList();
@@ -52,10 +43,21 @@ namespace RentACar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> NewRent(InvoiceRuleViewModel model)
         {
             if (ModelState.IsValid)
             {
+                // Validate model
+                (bool, string) checkDate = IsDateBeforeOrToday(model.StartDate.ToString());
+                if (!checkDate.Item1)
+                {
+                    ModelState.AddModelError("StartDate", checkDate.Item2);
+                    ViewBag.CarsDropdown = _carService.GetCarsFromSelectList();
+                    ViewBag.SelectedCar = model.Car;
+                    return View();
+                }
+
                 int result = await _rentService.AddRent(model);
 
                 if (result == 1)
@@ -68,9 +70,33 @@ namespace RentACar.Controllers
             return View();
         }
 
+        public static (bool, string) IsDateBeforeOrToday(string input)
+        {
+            DateTime inputTime;
+            var parseResult = DateTime.TryParse(input, out inputTime);
+
+            if (!parseResult)
+                return (false, "Geen geldige datum!");
+
+            if (inputTime <= DateTime.Now)
+                return (false, "Kies een latere datum!");
+
+
+            return (true, "");
+        }
+
+        [Authorize]
         public IActionResult MyRents()
         {
             ViewBag.Rents = _rentService.GetUserHiredCars();
+
+            return View();
+        }
+
+        [Authorize(Roles = "Admin,Employee")]
+        public IActionResult AllRents()
+        {
+            ViewBag.Rents = _rentService.GetHiredCars();
 
             return View();
         }

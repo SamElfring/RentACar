@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Alle gehuurd";
+}
+
+<div class="text-white">
+    <h2>Alle gehuurde auto's:</h2>
+
+    <div class="hiredCarsList mt-4 d-flex justify-content-between flex-wrap" style="color: black;">
+
+        @foreach (var rent in ViewBag.Rents)
+        {
+            <div class="card mb-4" style="width: calc(100% / 3.5);">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">@rent.Car.Brand @rent.Car.Type</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Kenteken: @rent.Car.LicensePlate</h6>
+                    <hr />
+                    <h6 class="card-subtitle mb-2 text-muted">Van: @rent.StartDate</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Tot: @rent.EndDate</h6>
+                    <hr />
+                    <h6 class="card-subtitle mb-2 text-muted">Dagprijs: €@rent.Car.DayPrice</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Huurprijs: {nog niet klaar}</h6>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

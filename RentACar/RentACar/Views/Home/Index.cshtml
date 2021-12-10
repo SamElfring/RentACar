@@ -7,7 +7,7 @@
     <h3 class="text-secondary">Of bel ons op: 031-4876836459</h3>
 </div>
 
-<div id="homeCards">
+<div id="homeCards" class="d-flex justify-content-between flex-wrap flex-lg-nowrap">
     <div class="card homeCard">
         <img class="card-img-top" src="~/img/car1.png" alt="Card foto">
         <div class="card-body">
@@ -39,14 +39,12 @@
 
 <style>
     #homeCards {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5rem;
+        margin-top: 4rem;
     }
 
     .homeCard {
         width: calc(100% / 3);
-        margin: 0 2rem;
+        margin: 1rem 2rem;
     }
     .homeCard img {
         width: fit-content();

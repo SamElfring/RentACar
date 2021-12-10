@@ -9,5 +9,6 @@ namespace RentACar.Services
     {
         public Task<int> AddRent(InvoiceRuleViewModel model);
         public List<InvoiceRule> GetUserHiredCars();
+        public List<InvoiceRule> GetHiredCars();
     }
 }

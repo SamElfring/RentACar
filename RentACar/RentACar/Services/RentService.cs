@@ -62,5 +62,20 @@ namespace RentACar.Services
                         EndDate = invoiceRule.EndDate
                     }).ToList();
         }
+
+        public List<InvoiceRule> GetHiredCars()
+        {
+            return (from invoiceRule in _db.InvoiceRules
+                    join car in _db.Cars on invoiceRule.Car.LicensePlate equals car.LicensePlate
+                    join invoice in _db.Invoices on invoiceRule.Invoice.Number equals invoice.Number
+                    select new InvoiceRule
+                    {
+                        Id = invoiceRule.Id,
+                        Car = car,
+                        Invoice = invoice,
+                        StartDate = invoiceRule.StartDate,
+                        EndDate = invoiceRule.EndDate
+                    }).ToList();
+        }
     }
 }

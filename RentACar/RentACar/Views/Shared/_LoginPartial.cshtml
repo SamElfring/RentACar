@@ -3,6 +3,9 @@
 @if (signinManager.IsSignedIn(User))
 {
     <li>
+        <a class="text-white nav-link" asp-action="Index" asp-controller="Invoice">Facturen</a>
+    </li>
+    <li>
         <p class="nav-link text-white">Welkom @User.Identity.Name</p>
     </li>
     <li>

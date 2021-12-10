@@ -15,5 +15,16 @@ namespace RentACar.Models
         public string ZipCode { get; set; }
 
         public string City { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.MiddleName))
+                    return $"{this.Initials} {this.LastName}";
+
+                return $"{this.Initials} {this.MiddleName} {this.LastName}";
+            }
+        }
     }
 }
