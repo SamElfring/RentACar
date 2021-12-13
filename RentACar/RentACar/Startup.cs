@@ -32,6 +32,11 @@ namespace RentACar
             services.AddTransient<IRentService, RentService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
 
+            services.AddSingleton(Configuration
+                            .GetSection("EmailConfiguration")
+                            .Get<EmailConfiguration>());
+            services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddControllersWithViews();
         }
 

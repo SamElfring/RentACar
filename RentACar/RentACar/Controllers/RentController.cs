@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Models;
 using RentACar.Models.ViewModels;
 using RentACar.Services;
 using System;
@@ -30,6 +31,7 @@ namespace RentACar.Controllers
             ViewBag.CarClass = carClass;
             ViewBag.IsAdmin = await _userService.HasAccess();
             ViewBag.Cars = _carService.GetCars(carClass);
+
             return View();
         }
 

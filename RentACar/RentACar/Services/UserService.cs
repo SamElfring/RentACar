@@ -66,5 +66,11 @@ namespace RentACar.Services
 
             return await _userManager.IsInRoleAsync(await this.GetUser(), "Admin");
         }
+
+        public async Task<string> GetEmail()
+        {
+            ApplicationUser user = await this.GetUser();
+            return user.Email;
+        }
     }
 }
