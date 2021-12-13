@@ -45,21 +45,51 @@ namespace RentACar.Services
         {
             sort = sort.ToLower();
 
+            List<Car> cars = new List<Car>();
+
             switch (sort)
             {
                 case "lowclass":
-                    return _db.Cars.Where(x => x.Class == "Low").ToList();
+                    cars = _db.Cars.Where(x => x.Class == "Low").ToList();
+                    break;
                 case "midclass":
-                    return _db.Cars.Where(x => x.Class == "Mid").ToList();
+                    cars = _db.Cars.Where(x => x.Class == "Mid").ToList();
+                    break;
                 case "highclass":
-                    return _db.Cars.Where(x => x.Class == "High").ToList();
+                    cars = _db.Cars.Where(x => x.Class == "High").ToList();
+                    break;
                 case "price-lowhigh":
-                    return _db.Cars.OrderBy(x => x.DayPrice).ToList();
+                    cars = _db.Cars.OrderBy(x => x.DayPrice).ToList();
+                    break;
                 case "price-highlow":
-                    return _db.Cars.OrderByDescending(x => x.DayPrice).ToList();
+                    cars = _db.Cars.OrderByDescending(x => x.DayPrice).ToList();
+                    break;
                 default:
-                    return _db.Cars.ToList();
+                    cars = _db.Cars.ToList();
+                    break;
             }
+
+
+            List<Car> availableCars = new List<Car>();
+
+            // Check if car is available
+            foreach (Car car in cars)
+            {
+                if (_db.InvoiceRules.Any(x => x.Car.LicensePlate == car.LicensePlate))
+                {
+                    InvoiceRule invoiceRule = _db.InvoiceRules.Where(x => x.Car.LicensePlate == car.LicensePlate).FirstOrDefault();
+                    if (DateTime.Now <= invoiceRule.StartDate && DateTime.Now >= invoiceRule.EndDate)
+                    {
+                        availableCars.Add(car);
+                    }
+                }
+                else
+                {
+                    availableCars.Add(car);
+                }
+            }
+
+            return availableCars;
         }
 
         public async Task<int> RemoveCar(string licensePlate)

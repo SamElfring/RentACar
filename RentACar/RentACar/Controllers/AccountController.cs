@@ -66,11 +66,57 @@ namespace RentACar.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Employee));
                 await _roleManager.CreateAsync(new IdentityRole(Helper.User));
+
+                await CreateStandardUsers();
             }
 
             ViewBag.IsAdmin = await _userService.IsAdmin();
-
             return View();
+        }
+
+        private async Task CreateStandardUsers()
+        {
+            ApplicationUser admin = new ApplicationUser()
+            {
+                UserName = "Beheerder_Account",
+                Email = "beheerderaccount@gmail.com",
+                Initials = "B.A.",
+                MiddleName = null,
+                LastName = "Account",
+                Adress = "Gieterij 200",
+                City = "Hengelo",
+                ZipCode = "2569JK"
+            };
+            await _userManager.CreateAsync(admin, "Beheerder!1");
+            await _userManager.AddToRoleAsync(admin, "Admin");
+
+            ApplicationUser employee = new ApplicationUser()
+            {
+                UserName = "Werknemer_Account",
+                Email = "werknemeraccount@gmail.com",
+                Initials = "W.A.",
+                MiddleName = null,
+                LastName = "Account",
+                Adress = "Gieterij 200",
+                City = "Hengelo",
+                ZipCode = "2569JK"
+            };
+            await _userManager.CreateAsync(employee, "Werknemer!1");
+            await _userManager.AddToRoleAsync(employee, "Employee");
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                UserName = "Gebruiker_Account",
+                Email = "gebruikeraccount@gmail.com",
+                Initials = "G.A.",
+                MiddleName = null,
+                LastName = "Account",
+                Adress = "Gieterij 200",
+                City = "Hengelo",
+                ZipCode = "2569JK"
+            };
+            await _userManager.CreateAsync(user, "Gebruiker!1");
+            await _userManager.AddToRoleAsync(user, "User");
         }
 
         [HttpPost]

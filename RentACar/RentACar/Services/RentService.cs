@@ -12,12 +12,14 @@ namespace RentACar.Services
         private readonly ApplicationDbContext _db;
         private readonly ICarService _carService;
         private readonly IUserService _userService;
+        private readonly IEmailSender _emailSender;
 
-        public RentService(ApplicationDbContext db, ICarService carService, IUserService userService)
+        public RentService(ApplicationDbContext db, ICarService carService, IUserService userService, IEmailSender emailSender)
         {
             _db = db;
             _userService = userService;
             _carService = carService;
+            _emailSender = emailSender;
         }
 
         public async Task<int> AddRent(InvoiceRuleViewModel model)
@@ -41,6 +43,28 @@ namespace RentACar.Services
                 StartDate = model.StartDate,
                 EndDate = model.EndDate
             };
+
+            var message = new Message(new string[] { await _userService.GetEmail() }, "Factuur - Rent A Car",
+                "<div>" +
+                    $"<h2>Factuur - {car.LicensePlate}</h2>" +
+                    "<table>" +
+                        "<tr style=\"background-color: green; color: white;\">" +
+                            "<th style=\"padding: 10px;\">Auto</th>" +
+                            "<th style=\"padding: 10px;\">Startdatum</th>" +
+                            "<th style=\"padding: 10px;\">Einddatum</th>" +
+                            "<th style=\"padding: 10px;\">Dagprijs</th>" +
+                            "<th style=\"padding: 10px;\">Totaal</th>" +
+                        "</tr>" +
+                        "<tr>" +
+                            $"<td style=\"padding: 10px;\">{car.Brand} {car.Type}</td>" +
+                            $"<td style=\"padding: 10px;\">{model.StartDate}</td>" +
+                            $"<td style=\"padding: 10px;\">{model.EndDate}</td>" +
+                            $"<td style=\"padding: 10px;\">€{car.DayPrice}</td>" +
+                            $"<td style=\"padding: 10px;\">€{(car.DayPrice * ((invoiceRule.EndDate - invoiceRule.StartDate).Days))}</td>" +
+                        "</tr>" +
+                    "</table>" +
+                "</div>");
+            _emailSender.SendEmail(message);
 
             _db.InvoiceRules.Add(invoiceRule);
             await _db.SaveChangesAsync();
