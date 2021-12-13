@@ -11,13 +11,12 @@ namespace RentACar.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _db;
 
-        public UserService(IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, ApplicationDbContext db)
+        public UserService(IHttpContextAccessor httpContextAccessor,
+            UserManager<ApplicationUser> userManager)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
-            _db = db;
         }
 
         public string GetUserId()
@@ -58,6 +57,14 @@ namespace RentACar.Services
         public ApplicationUser GetEmployees()
         {
             return _userManager.GetUsersInRoleAsync("Employee").Result[0];
+        }
+
+        public async Task<bool> IsAdmin()
+        {
+            if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                return false;
+
+            return await _userManager.IsInRoleAsync(await this.GetUser(), "Admin");
         }
     }
 }

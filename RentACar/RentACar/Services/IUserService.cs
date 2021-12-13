@@ -11,5 +11,6 @@ namespace RentACar.Services
         public Task<List<string>> GetUserRoles();
         public Task<bool> HasAccess();
         public ApplicationUser GetEmployees();
+        public Task<bool> IsAdmin();
     }
 }

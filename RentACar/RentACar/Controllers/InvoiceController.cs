@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace RentACar.Controllers
@@ -26,6 +27,8 @@ namespace RentACar.Controllers
                 ViewBag.Invoices = _invoiceService.GetInvoices();
             else
                 ViewBag.Invoices = _invoiceService.GetUserInvoices();
+
+            Console.WriteLine(ViewBag.Invoices.Count);
             return View();
         }
     }

@@ -5,6 +5,7 @@
     <h4>Account aanmaken</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="form-group row">
         <label class="col-md-2" asp-for="Initials"></label>
         <div class="col-md-10">
@@ -75,17 +76,23 @@
             <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="RoleName"></label>
-        <div class="col-md-10">
-            <select asp-for="RoleName"
-                    asp-items="@RentACar.Utility.Helper.GetRolesForDropDown( User.IsInRole(RentACar.Utility.Helper.Admin))"
-                    class="form-control">
-                <option selected>-- Selecteer rol</option>
-            </select>
-            <span asp-validation-for="RoleName" class="text-danger"></span>
+    @if (ViewBag.IsAdmin)
+    {
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="RoleName"></label>
+            <div class="col-md-10">
+                <select asp-for="RoleName"
+                        asp-items="@RentACar.Utility.Helper.GetRolesForDropDown( User.IsInRole(RentACar.Utility.Helper.Admin))"
+                        class="form-control">
+                    <option selected>-- Selecteer rol</option>
+                </select>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
         </div>
-    </div>
+    } else
+    {
+        <input hidden asp-for="RoleName" value="User"/>
+    }
     <div class="form-group">
         <div class="col-md-10 offset-md-2">
             <input type="submit" value="Registreer" class="btn btn-success" />

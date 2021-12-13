@@ -24,6 +24,7 @@ namespace RentACar.Services
                     join invoice in _db.Invoices on invoiceRule.Invoice.Number equals invoice.Number
                     join user in _db.Users on invoice.Customer.Id equals userId
                     join car in _db.Cars on invoiceRule.Car.LicensePlate equals car.LicensePlate
+                    where user.Id == userId
                     select new InvoiceViewModel
                     {
                         InvoiceRule = invoiceRule,

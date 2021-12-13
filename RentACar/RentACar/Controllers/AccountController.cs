@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Models;
 using RentACar.Models.ViewModels;
+using RentACar.Services;
 using RentACar.Utility;
 using System;
 using System.Threading.Tasks;
@@ -14,16 +15,19 @@ namespace RentACar.Controllers
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
         RoleManager<IdentityRole> _roleManager;
+        IUserService _userService;
 
         public AccountController(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IUserService userService)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _userService = userService;
         }
 
         public IActionResult Login()
@@ -63,6 +67,9 @@ namespace RentACar.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(Helper.Employee));
                 await _roleManager.CreateAsync(new IdentityRole(Helper.User));
             }
+
+            ViewBag.IsAdmin = await _userService.IsAdmin();
+
             return View();
         }
 

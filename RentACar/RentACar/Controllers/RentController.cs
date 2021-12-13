@@ -70,7 +70,7 @@ namespace RentACar.Controllers
             return View();
         }
 
-        public static (bool, string) IsDateBeforeOrToday(string input)
+        private static (bool, string) IsDateBeforeOrToday(string input)
         {
             DateTime inputTime;
             var parseResult = DateTime.TryParse(input, out inputTime);
