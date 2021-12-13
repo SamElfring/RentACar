@@ -20,10 +20,12 @@ laten maken.
 
 ## Onderdelen
 Om dit project zo goed mogelijk te laten verlopen zijn er meerdere documenten geschreven, namelijk:
-- Behoefteanalyse (Plan van Eisen)
-- Plan van aanpak
-- Functioneel ontwerp
-- Technisch ontwerp
+- <a id="raw-url" href="https://github.com/SamElfring/RentACar/blob/main/Documentatie/Plan%20van%20Eisen.docx?raw=true">Behoefteanalyse (Plan van Eisen)</a>
+- <a id="raw-url" href="https://github.com/SamElfring/RentACar/blob/main/Documentatie/Plan%20van%20Aanpak.docx?raw=true">Plan van Aanpak</a>
+- <a id="raw-url" href="https://github.com/SamElfring/RentACar/blob/main/Documentatie/Functioneel%20Ontwerp.docx?raw=true">Functioneel ontwerp</a>
+- <a id="raw-url" href="https://github.com/SamElfring/RentACar/blob/main/Documentatie/Technisch%20Ontwerp.docx?raw=true">Technisch ontwerp</a>
+
+<sub>Klik op de link om het bestand te downloaden</sub>
 
 ## Ontwikkelomgeving
 Dit project wordt gemaakt met *Asp.Net Core MVC* in *Visual Studio 2019*.
