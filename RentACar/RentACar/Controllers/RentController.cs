@@ -51,10 +51,19 @@ namespace RentACar.Controllers
             if (ModelState.IsValid)
             {
                 // Validate model
-                (bool, string) checkDate = IsDateBeforeOrToday(model.StartDate.ToString());
-                if (!checkDate.Item1)
+                (bool, string) checkStartDate = IsDateBeforeOrToday(model.StartDate.ToString());
+                if (!checkStartDate.Item1)
                 {
-                    ModelState.AddModelError("StartDate", checkDate.Item2);
+                    ModelState.AddModelError("StartDate", checkStartDate.Item2);
+                    ViewBag.CarsDropdown = _carService.GetCarsFromSelectList();
+                    ViewBag.SelectedCar = model.Car;
+                    return View();
+                }
+
+                (bool, string) checkEndDate = IsDateBeforeOrToday(model.EndDate.ToString());
+                if (!checkEndDate.Item1)
+                {
+                    ModelState.AddModelError("EndDate", checkEndDate.Item2);
                     ViewBag.CarsDropdown = _carService.GetCarsFromSelectList();
                     ViewBag.SelectedCar = model.Car;
                     return View();
